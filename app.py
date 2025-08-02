@@ -44,8 +44,9 @@ if st.button("Get Value"):
     # Search
     result = df[df[df.columns[0]] == counter_number]
     if not result.empty:
-        value = result.iloc[0]  # Get second column value
+        value = result.iloc[0, 1]  # Get second column value
         st.success(f"✅ Result: **{value}**")
     else:
         st.warning("❗ Counter number not found.")
+
 
