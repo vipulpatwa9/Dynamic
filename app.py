@@ -39,7 +39,7 @@ def load_data():
 df = load_data()
 
 # Input
-counter_number = st.number_input("Enter Counter Number:", min_value=1, step=1)
+counter_number = st.number_input("Enter Counter Number:", min_value=0, step=1)
 if st.button("Get Value"):
     # Search
     result = df[df[df.columns[0]] == counter_number]
@@ -48,3 +48,4 @@ if st.button("Get Value"):
         st.success(f"✅ Result: **{value}**")
     else:
         st.warning("❗ Counter number not found.")
+
