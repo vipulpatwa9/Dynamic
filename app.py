@@ -40,14 +40,20 @@ df = load_data()
 
 # Input
 counter_number = st.number_input("Enter Counter Number:", min_value=1, step=1)
+
 if st.button("Get Value"):
-    # Search
-    result = df[df[df.columns[0]] == counter_number]
-    if not result.empty:
-        value = result.iloc[0, 1]  # Get second column value
-        st.success(f"✅ Result: **{value}**")
-    else:
-        st.warning("❗ Counter number not found.")
+    try:
+        # Ensure matching types
+        df[df.columns[0]] = df[df.columns[0]].astype(int)
+        result = df[df[df.columns[0]] == int(counter_number)]
+
+        if not result.empty:
+            value = result.iloc[0, 1]
+            st.success(f"✅ Result: **{value}**")
+        else:
+            st.warning("❗ Counter number not found.")
+    except Exception as e:
+        st.error(f"⚠️ Error: {e}")
 
 
 
