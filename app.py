@@ -20,40 +20,40 @@ if not st.session_state.logged_in:
         if username == "admin" and password == "2580":
             st.session_state.logged_in = True
             st.success("✅ Login successful!")
-            st.rerun()
+            st.experimental_rerun()  # rerun to show main content
         else:
             st.error("Invalid credentials")
     st.stop()
 
-# ==== 3. App Content ====
-
+# ==== 3. Main App Content ====
 st.header("🔍 Search Counter Number")
 st.write("Enter Counter Number to fetch the corresponding value from the system.")
 
-# Load Excel File
+# ==== Load Excel Data ====
 @st.cache_data
 def load_data():
-    df = pd.read_excel("98002238.xlsx")
-    return df
+    return pd.read_excel("98002238.xlsx")
 
 df = load_data()
 
-# Input
+# ==== Debug Info (Optional) ====
+st.write("Raw Counter Column:", df[df.columns[0]].tolist())
+st.write("Data Types:", df[df.columns[0]].map(type).value_counts())
+
+# ==== Sanitize Data ====
+# Convert counter column to str and strip spaces
+df[df.columns[0]] = df[df.columns[0]].astype(str).str.strip()
+
+# ==== Input and Lookup ====
 counter_number = st.number_input("Enter Counter Number:", min_value=1, step=1)
 
 if st.button("Get Value"):
-    try:
-        # Ensure matching types
-        df[df.columns[0]] = df[df.columns[0]].astype(int)
-        result = df[df[df.columns[0]] == int(counter_number)]
+    match_value = str(counter_number).strip()
 
-        if not result.empty:
-            value = result.iloc[0, 1]
-            st.success(f"✅ Result: **{value}**")
-        else:
-            st.warning("❗ Counter number not found.")
-    except Exception as e:
-        st.error(f"⚠️ Error: {e}")
+    result = df[df[df.columns[0]] == match_value]
 
-
-
+    if not result.empty:
+        value = result.iloc[0, 1]  # Get value from second column
+        st.success(f"✅ Result: **{value}**")
+    else:
+        st.warning("❗ Counter number not found.")
