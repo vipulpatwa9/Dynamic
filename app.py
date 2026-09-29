@@ -17,7 +17,7 @@ if not st.session_state.logged_in:
     username = st.text_input("Enter Login ID")
     password = st.text_input("Enter Password", type="password")
     if st.button("Login"):
-        if username == "Admin" and password == "12345":
+        if username == "Admin" and password == "Admin@123":
             st.session_state.logged_in = True
             st.success("✅ Login successful!")
             st.rerun()
