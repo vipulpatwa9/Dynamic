@@ -8,7 +8,7 @@ if datetime.now() > datetime(2027, 9, 30):
     st.stop()
 
 # ==== 2. Login Page ====
-st.title("🔐 Dynamic Login")
+st.title("🔐 Password 🔐")
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
