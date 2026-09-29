@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime
 
 # ==== 1. Check Expiry ====
-if datetime.now() > datetime(2026, 8, 5):
+if datetime.now() > datetime(2027, 9, 30):
     st.error("❌ Session expired. Please contact admin.")
     st.stop()
 
